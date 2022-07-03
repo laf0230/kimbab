@@ -38,31 +38,37 @@ function App() {
         null
         :
         (
-          <input onChange={onChange} placeholder="Insert cost" type='number' />
+          <div>
+            <input onChange={onChange} placeholder="Insert cost" type='number' />
+            $
+          </div>
         )
       }
+
       <div>
         {loading ?
           null
           :
-          (
+          (selected === null) || (cost === '')
+            ?
             <h3>
-              {
-                selected === null
-                  ?
-                  'Please select Coin'
+              Please {
+                selected === null ?
+                  'select coin'
                   :
-                  `You can buy
-              ${(cost === null)
-                    ?
-                    ' 0.00 '
-                    :
-                    ` ${update} `
-                  }
-              Coins`
+                  'insert cost'
               }
             </h3>
-          )
+            :
+            <h3>You can buy
+              {(cost === null)
+                ?
+                ' 0.00 '
+                :
+                ` ${update} `
+              }
+              Coins.
+            </h3>
         }
       </div>
       {loading ? (
@@ -78,9 +84,6 @@ function App() {
         </select>
       )
       }
-      <div>
-
-      </div>
     </div >
   )
 }
