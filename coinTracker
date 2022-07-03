@@ -1,0 +1,88 @@
+import { useEffect, useState } from "react";
+function App() {
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  const [cost, setCost] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [update, setUpdate] = useState(null);
+
+  const onSelect = (e) => {
+    if (e.target.selectedIndex === 0)
+      setSelected(null);
+    else (
+      setSelected(e.target[e.target.selectedIndex].childNodes[4].data)
+    )
+  }
+
+  const onChange = (e) => {
+    setCost(e.target.value);
+  }
+
+  useEffect(() => {
+    setUpdate((Math.floor((cost / selected) * 100)) / 100);
+  }, [onChange])
+
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json);
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div>
+      <h1>The Coins! {loading ? '' : `(${coins.length})`}</h1>
+      {loading ?
+        null
+        :
+        (
+          <input onChange={onChange} placeholder="Insert cost" type='number' />
+        )
+      }
+      <div>
+        {loading ?
+          null
+          :
+          (
+            <h3>
+              {
+                selected === null
+                  ?
+                  'Please select Coin'
+                  :
+                  `You can buy
+              ${(cost === null)
+                    ?
+                    ' 0.00 '
+                    :
+                    ` ${update} `
+                  }
+              Coins`
+              }
+            </h3>
+          )
+        }
+      </div>
+      {loading ? (
+        <strong>Loading...</strong>
+      ) : (
+        <select onChange={onSelect}>
+          <option id="none">-- select --</option>
+          {coins.map((coin) => (
+            <option>
+              {coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD
+            </option>
+          ))}
+        </select>
+      )
+      }
+      <div>
+
+      </div>
+    </div >
+  )
+}
+
+export default App;
