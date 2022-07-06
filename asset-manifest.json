@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/kimbab/static/js/main.60ef7032.js",
+    "main.css": "/kimbab/static/css/main.58e11ac3.css",
+    "main.js": "/kimbab/static/js/main.51af5611.js",
     "index.html": "/kimbab/index.html",
-    "main.60ef7032.js.map": "/kimbab/static/js/main.60ef7032.js.map"
+    "main.58e11ac3.css.map": "/kimbab/static/css/main.58e11ac3.css.map",
+    "main.51af5611.js.map": "/kimbab/static/js/main.51af5611.js.map"
   },
   "entrypoints": [
-    "static/js/main.60ef7032.js"
+    "static/css/main.58e11ac3.css",
+    "static/js/main.51af5611.js"
   ]
 }
